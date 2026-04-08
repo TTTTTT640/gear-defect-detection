@@ -1,0 +1,26 @@
+# Model files (too large for GitHub, use Git LFS or share separately)
+*.pt
+*.onnx
+*.dlc
+*.pth
+
+# Ultralytics library (install via pip)
+QT_last/ultralytics/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.eggs/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Competition PDFs (proprietary)
+*.pdf
