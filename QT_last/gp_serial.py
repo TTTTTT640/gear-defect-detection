@@ -55,6 +55,39 @@ class SerialManager:
                 return self.send(data)
         return False
     
+    def send_pwm(self, duty_percent):
+        """发送补光灯PWM占空比指令
+
+        协议: "PWM:XXX" (XXX=000~100)
+        用户可根据实际下位机协议修改格式。
+
+        Args:
+            duty_percent: PWM占空比 (0~100)
+        """
+        duty = max(0, min(100, int(duty_percent)))
+        return self.send(f"PWM:{duty:03d}")
+
+    def read_line(self, timeout=0.5):
+        """读取一行串口数据（用于接收下位机ADC等数据）
+
+        Args:
+            timeout: 读取超时(秒)
+        Returns:
+            str: 读取到的数据行，超时返回None
+        """
+        if self.serial and self.serial.is_open:
+            with self.lock:
+                try:
+                    old_timeout = self.serial.timeout
+                    self.serial.timeout = timeout
+                    line = self.serial.readline().decode(errors="ignore").strip()
+                    self.serial.timeout = old_timeout
+                    return line if line else None
+                except Exception as e:
+                    print(f"串口读取失败: {e}")
+                    return None
+        return None
+
     def close(self):
         """关闭串口"""
         if self.serial and self.serial.is_open:

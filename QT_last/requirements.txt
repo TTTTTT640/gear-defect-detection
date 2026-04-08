@@ -2,4 +2,7 @@ PyQt5>=5.15
 opencv-python>=4.5
 pyserial>=3.5
 numpy>=1.20
+openpyxl>=3.0
+matplotlib>=3.5
 # ultralytics: 项目内置ultralytics/目录，或 pip install ultralytics>=8.0
+# onnxruntime-gpu: 可选，用于ONNX推理后端
